@@ -7,10 +7,12 @@ class TweetsController < ApplicationController
   def create
     @tweet = Tweet.new(tweet_params)
 
-    if @tweet.save
-      redirect_to tweets_path
-    else
-      render :index
+    respond_to do |format|
+      if @tweet.save
+        format.html {render @tweet}
+      else
+        format.html {render :index}
+      end
     end
   end
 
